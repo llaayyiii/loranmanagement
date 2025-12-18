@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Loran Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <header class="container flex items-center justify-between" style="padding-top: var(--spacing-lg);">
+        <h1 class="text-xl font-bold">Profil Saya</h1>
+        <ion-icon name="settings-outline" style="font-size: 1.5rem;"></ion-icon>
+    </header>
+
+    <main class="container main-content animate-fade-in">
+
+        <!-- Digital Member Card -->
+        <section class="card"
+            style="background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue)); color: white; position: relative; overflow: hidden;">
+            <!-- Decorative circle -->
+            <div
+                style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; border-radius: 50%; background: rgba(255,255,255,0.1);">
+            </div>
+
+            <div class="flex items-center gap-md" style="margin-bottom: var(--spacing-lg);">
+                <div
+                    style="width: 60px; height: 60px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <ion-icon name="person" style="font-size: 2rem; color: var(--text-muted);"></ion-icon>
+                </div>
+                <div>
+                    <h2 class="font-bold text-lg">Budi Santoso</h2>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">Warga Tetap</p>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-end">
+                <div>
+                    <label
+                        style="display: block; font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px;">Alamat</label>
+                    <span class="font-medium">Blok A1 No. 12</span>
+                </div>
+                <div style="text-align: right;">
+                    <label
+                        style="display: block; font-size: 0.7rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px;">ID
+                        Anggota</label>
+                    <span class="font-medium">LRN-00125</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Center -->
+        <section>
+            <h3 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Pusat Notifikasi</h3>
+
+            <div class="card flex gap-md" style="padding: var(--spacing-md);">
+                <div
+                    style="background-color: #E8F5E9; padding: 10px; border-radius: 50%; height: fit-content; display: flex;">
+                    <ion-icon name="checkmark-circle-outline"
+                        style="color: var(--secondary-green); font-size: 1.2rem;"></ion-icon>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Pembayaran Diverifikasi</h4>
+                    <p class="text-sm text-muted" style="margin: 4px 0;">Pembayaran iuran bulan September telah diterima
+                        oleh admin.</p>
+                    <span class="text-muted" style="font-size: 0.7rem;">20 Sep 2025</span>
+                </div>
+            </div>
+
+            <div class="card flex gap-md" style="padding: var(--spacing-md); background-color: #F9FAFB;">
+                <div
+                    style="background-color: #E3F2FD; padding: 10px; border-radius: 50%; height: fit-content; display: flex;">
+                    <ion-icon name="people-outline" style="color: var(--primary-blue); font-size: 1.2rem;"></ion-icon>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Undangan Rapat Warga</h4>
+                    <p class="text-sm text-muted" style="margin: 4px 0;">Rapat bulanan akan diadakan hari Sabtu di Balai
+                        Warga.</p>
+                    <span class="text-muted" style="font-size: 0.7rem;">15 Sep 2025</span>
+                </div>
+            </div>
+
+            <div class="card flex gap-md" style="padding: var(--spacing-md); background-color: #F9FAFB;">
+                <div
+                    style="background-color: #FFF3CD; padding: 10px; border-radius: 50%; height: fit-content; display: flex;">
+                    <ion-icon name="warning-outline" style="color: #856404; font-size: 1.2rem;"></ion-icon>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm">Tagihan Jatuh Tempo</h4>
+                    <p class="text-sm text-muted" style="margin: 4px 0;">Jangan lupa membayar iuran bulan ini sebelum
+                        tanggal 20.</p>
+                    <span class="text-muted" style="font-size: 0.7rem;">10 Sep 2025</span>
+                </div>
+            </div>
+        </section>
+
+        <button class="btn btn-outline"
+            style="color: var(--danger-red); border-color: var(--danger-red); margin-top: var(--spacing-lg);">
+            <ion-icon name="log-out-outline" style="margin-right: 8px;"></ion-icon>
+            Keluar Aplikasi
+        </button>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <ion-icon name="home-outline" class="nav-icon"></ion-icon>
+            <span>Beranda</span>
+        </a>
+        <a href="payment.html" class="nav-item">
+            <ion-icon name="card-outline" class="nav-icon"></ion-icon>
+            <span>Bayar</span>
+        </a>
+        <a href="admin.html" class="nav-item">
+            <ion-icon name="grid-outline" class="nav-icon"></ion-icon>
+            <span>Admin</span>
+        </a>
+        <a href="profile.html" class="nav-item active">
+            <ion-icon name="person" class="nav-icon"></ion-icon>
+            <span>Profil</span>
+        </a>
+    </nav>
+</body>
+
+</html>

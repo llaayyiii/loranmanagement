@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bayar Iuran - Loran Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <header class="container flex items-center gap-md" style="padding-top: var(--spacing-lg);">
+        <a href="index.html" style="color: var(--text-dark); font-size: 1.5rem;">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+        <h1 class="text-xl font-bold">Pembayaran</h1>
+    </header>
+
+    <main class="container main-content animate-fade-in">
+
+        <!-- Month Selection -->
+        <section class="card">
+            <h2 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Pilih Bulan</h2>
+            <div class="input-group">
+                <label class="label">Bulan Tagihan</label>
+                <select class="select">
+                    <option value="okt2025" selected>Oktober 2025 (Belum Lunas)</option>
+                    <option value="sep2025" disabled>September 2025 (Lunas)</option>
+                    <option value="agu2025" disabled>Agustus 2025 (Lunas)</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Cost Breakdown -->
+        <section class="card">
+            <h2 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Rincian Biaya</h2>
+            <div class="flex justify-between items-center"
+                style="margin-bottom: var(--spacing-sm); padding-bottom: 8px; border-bottom: 1px dashed #E5E7EB;">
+                <span class="text-muted">Iuran Kebersihan</span>
+                <span class="font-medium">Rp20.000</span>
+            </div>
+            <div class="flex justify-between items-center"
+                style="margin-bottom: var(--spacing-sm); padding-bottom: 8px; border-bottom: 1px dashed #E5E7EB;">
+                <span class="text-muted">Iuran Keamanan</span>
+                <span class="font-medium">Rp30.000</span>
+            </div>
+            <div class="flex justify-between items-center" style="margin-top: var(--spacing-md);">
+                <span class="font-bold text-lg">Total Tagihan</span>
+                <span class="font-bold text-primary text-xl">Rp50.000</span>
+            </div>
+        </section>
+
+        <!-- Payment Methods -->
+        <section>
+            <h2 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Metode Pembayaran</h2>
+
+            <div class="card flex items-center gap-md"
+                style="cursor: pointer; border: 2px solid var(--primary-blue); background-color: var(--accent-light);">
+                <ion-icon name="cloud-upload-outline" style="font-size: 24px; color: var(--primary-blue);"></ion-icon>
+                <div style="flex: 1;">
+                    <span class="font-bold text-primary" style="display: block;">Unggah Bukti Transfer</span>
+                    <span class="text-sm text-muted">Verifikasi Manual oleh Admin</span>
+                </div>
+                <ion-icon name="checkmark-circle" style="font-size: 24px; color: var(--primary-blue);"></ion-icon>
+            </div>
+
+            <div class="card flex items-center gap-md" style="opacity: 0.6; cursor: not-allowed;">
+                <ion-icon name="wallet-outline" style="font-size: 24px;"></ion-icon>
+                <div style="flex: 1;">
+                    <span class="font-medium" style="display: block;">E-Wallet (OVO / GoPay)</span>
+                    <span class="text-sm text-muted">Akan datang</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="card" style="text-align: center; border: 2px dashed #E5E7EB; background: transparent;">
+            <div style="padding: 20px;">
+                <ion-icon name="camera-outline"
+                    style="font-size: 48px; color: var(--text-muted); margin-bottom: 8px;"></ion-icon>
+                <p class="text-muted text-sm" style="margin-bottom: 16px;">Ambil foto atau pilih dari galeri</p>
+                <button class="btn btn-primary"
+                    onclick="alert('Ini hanya demo statis. Fitur kamera akan aktif di aplikasi nyata.')">
+                    <ion-icon name="camera" style="margin-right: 8px;"></ion-icon>
+                    Buka Kamera
+                </button>
+            </div>
+        </section>
+
+        <button class="btn btn-success" style="margin-top: var(--spacing-md);"
+            onclick="alert('Data tersimpan! Status akan berubah setelah verifikasi admin.')">
+            Konfirmasi Pembayaran
+        </button>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <ion-icon name="home-outline" class="nav-icon"></ion-icon>
+            <span>Beranda</span>
+        </a>
+        <a href="payment.html" class="nav-item active">
+            <ion-icon name="card" class="nav-icon"></ion-icon>
+            <span>Bayar</span>
+        </a>
+        <a href="admin.html" class="nav-item">
+            <ion-icon name="grid-outline" class="nav-icon"></ion-icon>
+            <span>Admin</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <ion-icon name="person-outline" class="nav-icon"></ion-icon>
+            <span>Profil</span>
+        </a>
+    </nav>
+
+</body>
+
+</html>

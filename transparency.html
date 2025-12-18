@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Kas - Loran Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        .chart-bar {
+            height: 20px;
+            border-radius: 4px;
+            margin-bottom: 4px;
+            position: relative;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 2px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="container flex items-center gap-md" style="padding-top: var(--spacing-lg);">
+        <a href="index.html" style="color: var(--text-dark); font-size: 1.5rem;">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+        <h1 class="text-xl font-bold">Laporan Kas Transparan</h1>
+    </header>
+
+    <main class="container main-content animate-fade-in">
+
+        <!-- Summary Cards -->
+        <div class="flex gap-md" style="margin-bottom: var(--spacing-md);">
+            <div class="card" style="flex: 1; margin-bottom: 0; padding: var(--spacing-md);">
+                <div class="text-sm text-muted">Pemasukan Bulan Ini</div>
+                <div class="font-bold text-success text-lg" style="margin-top: 4px;">Rp 5.2Jt</div>
+            </div>
+            <div class="card" style="flex: 1; margin-bottom: 0; padding: var(--spacing-md);">
+                <div class="text-sm text-muted">Pengeluaran Bulan Ini</div>
+                <div class="font-bold text-danger text-lg" style="margin-top: 4px;">Rp 1.5Jt</div>
+            </div>
+        </div>
+
+        <!-- Monthly Chart (Simple CSS) -->
+        <section class="card">
+            <h3 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Grafik Arus Kas 2025</h3>
+
+            <div style="margin-bottom: var(--spacing-md);">
+                <div class="chart-label"><span>Oktober</span> <span>+5.2jt | -1.5jt</span></div>
+                <div class="chart-bar" style="width: 80%; background-color: var(--secondary-green); opacity: 0.8;">
+                </div>
+                <div class="chart-bar" style="width: 25%; background-color: var(--danger-red); opacity: 0.8;"></div>
+            </div>
+
+            <div style="margin-bottom: var(--spacing-md);">
+                <div class="chart-label"><span>September</span> <span>+4.8jt | -1.2jt</span></div>
+                <div class="chart-bar" style="width: 75%; background-color: var(--secondary-green); opacity: 0.6;">
+                </div>
+                <div class="chart-bar" style="width: 20%; background-color: var(--danger-red); opacity: 0.6;"></div>
+            </div>
+
+            <div style="margin-bottom: var(--spacing-sm);">
+                <div class="chart-label"><span>Agustus</span> <span>+5.0jt | -2.0jt</span></div>
+                <div class="chart-bar" style="width: 78%; background-color: var(--secondary-green); opacity: 0.6;">
+                </div>
+                <div class="chart-bar" style="width: 35%; background-color: var(--danger-red); opacity: 0.6;"></div>
+            </div>
+        </section>
+
+        <!-- Transaction List -->
+        <section class="card">
+            <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-md);">
+                <h3 class="font-bold text-lg">Mutasi Terakhir</h3>
+                <button class="btn-outline" style="padding: 4px 8px; font-size: 0.75rem; width: auto;">Filter</button>
+            </div>
+
+            <div class="flex flex-col gap-md">
+                <!-- Item 1 -->
+                <div class="flex justify-between items-center"
+                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 8px;">
+                    <div>
+                        <div class="font-bold text-sm">Iuran Sampah & Keamanan</div>
+                        <div class="text-sm text-muted">Bpk. Budi Santoso (Blok A1)</div>
+                        <div class="text-sm text-muted" style="font-size: 0.7rem;">18 Okt 2025, 14:30</div>
+                    </div>
+                    <div class="font-bold text-success text-sm">+50.000</div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex justify-between items-center"
+                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 8px;">
+                    <div>
+                        <div class="font-bold text-sm">Perbaikan Jalan Utama</div>
+                        <div class="text-sm text-muted">Material Bangunan</div>
+                        <div class="text-sm text-muted" style="font-size: 0.7rem;">17 Okt 2025, 09:15</div>
+                    </div>
+                    <div class="font-bold text-danger text-sm">-1.200.000</div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex justify-between items-center"
+                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 8px;">
+                    <div>
+                        <div class="font-bold text-sm">Iuran Sampah & Keamanan</div>
+                        <div class="text-sm text-muted">Ibu Siti (Blok B5)</div>
+                        <div class="text-sm text-muted" style="font-size: 0.7rem;">16 Okt 2025, 10:00</div>
+                    </div>
+                    <div class="font-bold text-success text-sm">+50.000</div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="flex justify-between items-center">
+                    <div>
+                        <div class="font-bold text-sm">Konsumsi Rapat Warga</div>
+                        <div class="text-sm text-muted">Snack Box</div>
+                        <div class="text-sm text-muted" style="font-size: 0.7rem;">15 Okt 2025, 19:00</div>
+                    </div>
+                    <div class="font-bold text-danger text-sm">-300.000</div>
+                </div>
+            </div>
+
+            <button class="btn btn-outline" style="margin-top: var(--spacing-md); width: 100%;">
+                Muat Lebih Banyak
+            </button>
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <ion-icon name="home-outline" class="nav-icon"></ion-icon>
+            <span>Beranda</span>
+        </a>
+        <a href="payment.html" class="nav-item">
+            <ion-icon name="card-outline" class="nav-icon"></ion-icon>
+            <span>Bayar</span>
+        </a>
+        <a href="admin.html" class="nav-item">
+            <ion-icon name="grid-outline" class="nav-icon"></ion-icon>
+            <span>Admin</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <ion-icon name="person-outline" class="nav-icon"></ion-icon>
+            <span>Profil</span>
+        </a>
+    </nav>
+
+</body>
+
+</html>

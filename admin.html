@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Loran Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <header class="container flex items-center justify-between" style="padding-top: var(--spacing-lg);">
+        <h1 class="text-xl font-bold">Panel Admin</h1>
+        <button class="btn-outline" style="padding: 6px 12px; font-size: 0.8rem;">Keluar</button>
+    </header>
+
+    <main class="container main-content animate-fade-in">
+
+        <!-- Action Buttons -->
+        <section class="flex gap-md" style="margin-bottom: var(--spacing-md);">
+            <button class="btn btn-primary shadow-lg"
+                onclick="alert('Pesan WhatsApp terkirim ke 15 warga yang menunggak!')">
+                <ion-icon name="logo-whatsapp" style="margin-right: 8px; font-size: 1.2rem;"></ion-icon>
+                Blast Tagihan
+            </button>
+        </section>
+
+        <!-- Verification Queue -->
+        <section class="card">
+            <div class="card-header flex justify-between items-center">
+                <h3 class="font-bold text-lg">Verifikasi Pembayaran</h3>
+                <span class="status-indicator status-unpaid" style="background: #FFF3CD; color: #856404;">3
+                    Pending</span>
+            </div>
+
+            <div class="flex flex-col gap-md">
+                <!-- Item 1 -->
+                <div class="flex justify-between items-center"
+                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 12px;">
+                    <div>
+                        <div class="font-bold text-sm">Bpk. Ahmad (C2)</div>
+                        <div class="text-sm text-primary" style="margin-bottom: 4px;">Bukti_TF_Okt.jpg</div>
+                        <div class="text-sm text-muted" style="font-size: 0.7rem;">Rp 50.000</div>
+                    </div>
+                    <div class="flex gap-sm">
+                        <button class="btn-success" style="padding: 8px; border-radius: 50%; width: 36px; height: 36px;"
+                            onclick="this.parentElement.parentElement.style.display='none'">
+                            <ion-icon name="checkmark-outline" style="font-size: 1.2rem;"></ion-icon>
+                        </button>
+                        <button class="btn-outline"
+                            style="padding: 8px; border-radius: 50%; width: 36px; height: 36px; border-color: var(--danger-red); color: var(--danger-red);"
+                            onclick="alert('Tolak pembayaran?')">
+                            <ion-icon name="close-outline" style="font-size: 1.2rem;"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex justify-between items-center"
+                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 12px;">
+                    <div>
+                        <div class="font-bold text-sm">Ibu Ratna (A5)</div>
+                        <div class="text-sm text-primary" style="margin-bottom: 4px;">IMG_20251018.jpg</div>
+                        <div class="text-sm text-muted" style="font-size: 0.7rem;">Rp 50.000</div>
+                    </div>
+                    <div class="flex gap-sm">
+                        <button class="btn-success" style="padding: 8px; border-radius: 50%; width: 36px; height: 36px;"
+                            onclick="this.parentElement.parentElement.style.display='none'">
+                            <ion-icon name="checkmark-outline" style="font-size: 1.2rem;"></ion-icon>
+                        </button>
+                        <button class="btn-outline"
+                            style="padding: 8px; border-radius: 50%; width: 36px; height: 36px; border-color: var(--danger-red); color: var(--danger-red);"
+                            onclick="alert('Tolak pembayaran?')">
+                            <ion-icon name="close-outline" style="font-size: 1.2rem;"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Arrears List -->
+        <section class="card">
+            <h3 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Daftar Tunggakan</h3>
+
+            <div class="flex flex-col gap-md">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-md">
+                        <div
+                            style="width: 40px; height: 40px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            AG</div>
+                        <div>
+                            <div class="font-bold text-sm">Agung Santoso (D1)</div>
+                            <div class="text-danger text-sm" style="font-size: 0.75rem;">Menunggak 2 Bulan</div>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/?text=Halo%20Bpk%20Agung,%20mohon%20lunasi%20tunggakan%20iuran%20warga.%20Terima%20kasih."
+                        target="_blank" class="btn-outline" style="padding: 8px; border-radius: 12px;">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                    </a>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-md">
+                        <div
+                            style="width: 40px; height: 40px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                            DI</div>
+                        <div>
+                            <div class="font-bold text-sm">Dimas (B3)</div>
+                            <div class="text-danger text-sm" style="font-size: 0.75rem;">Menunggak 1 Bulan</div>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/?text=Halo%20Dimas,%20mohon%20lunasi%20tunggakan%20iuran%20warga.%20Terima%20kasih."
+                        target="_blank" class="btn-outline" style="padding: 8px; border-radius: 12px;">
+                        <ion-icon name="logo-whatsapp"></ion-icon>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <ion-icon name="home-outline" class="nav-icon"></ion-icon>
+            <span>Beranda</span>
+        </a>
+        <a href="payment.html" class="nav-item">
+            <ion-icon name="card-outline" class="nav-icon"></ion-icon>
+            <span>Bayar</span>
+        </a>
+        <a href="admin.html" class="nav-item active">
+            <ion-icon name="grid" class="nav-icon"></ion-icon>
+            <span>Admin</span>
+        </a>
+        <a href="profile.html" class="nav-item">
+            <ion-icon name="person-outline" class="nav-icon"></ion-icon>
+            <span>Profil</span>
+        </a>
+    </nav>
+</body>
+
+</html>
