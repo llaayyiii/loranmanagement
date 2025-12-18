@@ -77,18 +77,114 @@
         </section>
 
         <!-- Upload Section -->
-        <section class="card" style="text-align: center; border: 2px dashed #E5E7EB; background: transparent;">
-            <div style="padding: 20px;">
+        <section class="card"
+            style="text-align: center; border: 2px dashed #E5E7EB; background: transparent; overflow: hidden;">
+            <div id="camera-ui" style="padding: 20px;">
                 <ion-icon name="camera-outline"
                     style="font-size: 48px; color: var(--text-muted); margin-bottom: 8px;"></ion-icon>
                 <p class="text-muted text-sm" style="margin-bottom: 16px;">Ambil foto atau pilih dari galeri</p>
-                <button class="btn btn-primary"
-                    onclick="alert('Ini hanya demo statis. Fitur kamera akan aktif di aplikasi nyata.')">
+                <button id="open-camera-btn" class="btn btn-primary">
                     <ion-icon name="camera" style="margin-right: 8px;"></ion-icon>
                     Buka Kamera
                 </button>
             </div>
+
+            <div id="camera-stream-container" style="display: none; position: relative;">
+                <video id="camera-video" autoplay playsinline style="width: 100%; border-radius: 8px;"></video>
+                <canvas id="camera-canvas" style="display: none;"></canvas>
+                <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
+                    <button id="capture-btn" class="btn btn-primary" style="width: auto;">
+                        <ion-icon name="aperture" style="margin-right: 8px;"></ion-icon>
+                        Ambil Foto
+                    </button>
+                    <button id="close-camera-btn" class="btn btn-outline"
+                        style="width: auto; border-color: var(--danger-red); color: var(--danger-red);">
+                        Batal
+                    </button>
+                </div>
+            </div>
+
+            <div id="preview-container" style="display: none; padding: 10px;">
+                <img id="photo-preview" src="" alt="Bukti Transfer"
+                    style="width: 100%; border-radius: 8px; margin-bottom: 10px; border: 1px solid #ddd;">
+                <button id="retake-btn" class="btn btn-outline" style="width: auto;">
+                    <ion-icon name="refresh" style="margin-right: 8px;"></ion-icon>
+                    Foto Ulang
+                </button>
+            </div>
         </section>
+
+        <script>
+            const cameraUI = document.getElementById('camera-ui');
+            const streamContainer = document.getElementById('camera-stream-container');
+            const previewContainer = document.getElementById('preview-container');
+
+            const openBtn = document.getElementById('open-camera-btn');
+            const closeBtn = document.getElementById('close-camera-btn');
+            const captureBtn = document.getElementById('capture-btn');
+            const retakeBtn = document.getElementById('retake-btn');
+
+            const video = document.getElementById('camera-video');
+            const canvas = document.getElementById('camera-canvas');
+            const photoPreview = document.getElementById('photo-preview');
+
+            let stream = null;
+
+            async function startCamera() {
+                try {
+                    stream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'environment' }
+                    });
+                    video.srcObject = stream;
+
+                    cameraUI.style.display = 'none';
+                    streamContainer.style.display = 'block';
+                    previewContainer.style.display = 'none';
+                } catch (err) {
+                    console.error("Error accessing camera: ", err);
+                    alert("Gagal mengakses kamera. Pastikan izin kamera diberikan.");
+                }
+            }
+
+            function stopCamera() {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                    stream = null;
+                }
+                video.srcObject = null;
+                streamContainer.style.display = 'none';
+            }
+
+            openBtn.addEventListener('click', startCamera);
+
+            closeBtn.addEventListener('click', () => {
+                stopCamera();
+                cameraUI.style.display = 'block';
+            });
+
+            captureBtn.addEventListener('click', () => {
+                // Set canvas size to match video
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+
+                // Draw video frame to canvas
+                const context = canvas.getContext('2d');
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                // Convert to data URL
+                const dataUrl = canvas.toDataURL('image/png');
+                photoPreview.src = dataUrl;
+
+                // Switch views
+                stopCamera();
+                previewContainer.style.display = 'block';
+            });
+
+            retakeBtn.addEventListener('click', () => {
+                previewContainer.style.display = 'none';
+                startCamera();
+            });
+        </script>
 
         <button class="btn btn-success" style="margin-top: var(--spacing-md);"
             onclick="alert('Data tersimpan! Status akan berubah setelah verifikasi admin.')">
