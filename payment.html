@@ -37,27 +37,74 @@
                 // Helper to format date
                 const formatMonth = (date) => date.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
 
-                // option 1: Current Month
-                const opt1 = document.createElement('option');
-                opt1.text = `${formatMonth(pNow)} (Belum Lunas)`;
-                opt1.selected = true;
-                select.add(opt1);
+                // Generate options for the full year (Jan to Dec)
+                const currentYear = pNow.getFullYear();
+                const currentMonthIdx = pNow.getMonth();
 
-                // option 2: Previous Month
-                const prev1 = new Date(pNow);
-                prev1.setMonth(pNow.getMonth() - 1);
-                const opt2 = document.createElement('option');
-                opt2.text = `${formatMonth(prev1)} (Lunas)`;
-                opt2.disabled = true;
-                select.add(opt2);
+                for (let i = 0; i < 12; i++) {
+                    const date = new Date(currentYear, i, 1);
+                    const option = document.createElement('option');
+                    const monthName = formatMonth(date);
 
-                // option 3: 2 Months Ago
-                const prev2 = new Date(pNow);
-                prev2.setMonth(pNow.getMonth() - 2);
-                const opt3 = document.createElement('option');
-                opt3.text = `${formatMonth(prev2)} (Lunas)`;
-                opt3.disabled = true;
-                select.add(opt3);
+                    let statusText = "";
+                    let isDisabled = false;
+                    let isSelected = false;
+
+                    if (i < currentMonthIdx) {
+                        statusText = "(Lunas)";
+                        isDisabled = true; // Cannot pay past months
+                    } else if (i === currentMonthIdx) {
+                        statusText = "(Belum Lunas)";
+                        isSelected = true; // Default to current month
+                    } else {
+                        statusText = "(Belum Tagih)";
+                        isDisabled = true; // Cannot pay future months yet
+                    }
+
+                    option.text = `${monthName} ${statusText}`;
+                    option.disabled = isDisabled;
+                    option.selected = isSelected;
+
+                    // Add to select (append so Jan is top? Or Dec is top?
+                    // Usually reversed is better for "Newest first" but "Jan-Dec" is standard for year view.
+                    // The image shows Dec, Nov, Oct.. so descending order seems preferred if it's a history-like view.
+                    // But for "Select Month", distinct sorting is needed.
+                    // The user image shows Descending (Dec, Nov, Oct).
+                    // I will add to the beginning of the select to make it descending, or just loop backwards.
+                    // Let's loop backwards: 11 down to 0.
+                }
+
+                // Actually, let's clearer loop backwards
+                select.innerHTML = ''; // Clear existing
+
+                for (let i = 11; i >= 0; i--) {
+                    const date = new Date(currentYear, i, 1);
+                    const option = document.createElement('option');
+                    // Format: "Month Year" (e.g. Desember 2025)
+                    // formatMonth helper does this.
+                    // But wait, the helper might need to be consistent. 
+                    const monthLabel = date.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' });
+
+                    let statusText = "";
+                    let isDisabled = false;
+                    let isSelected = false;
+
+                    if (i < currentMonthIdx) {
+                        statusText = "(Lunas)";
+                        isDisabled = true;
+                    } else if (i === currentMonthIdx) {
+                        statusText = "(Belum Lunas)";
+                        isSelected = true;
+                    } else {
+                        statusText = "(Belum Tagih)";
+                        isDisabled = true;
+                    }
+
+                    option.text = `${monthLabel} ${statusText}`;
+                    option.disabled = isDisabled;
+                    option.selected = isSelected;
+                    select.add(option);
+                }
             </script
         </section>
 
