@@ -8,6 +8,75 @@
     <link rel="stylesheet" href="styles.css">
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <style>
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 85%;
+            max-width: 320px;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .success-animation {
+            width: 80px;
+            height: 80px;
+            background-color: var(--secondary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 40px;
+            animation: bounceIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            60% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -131,28 +200,34 @@
         <section>
             <h2 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Metode Pembayaran</h2>
 
-            <div class="card flex items-center gap-md"
-                style="cursor: pointer; border: 2px solid var(--primary-blue); background-color: var(--accent-light);">
+            <div id="method-transfer" class="card flex items-center gap-md"
+                style="cursor: pointer; border: 2px solid var(--primary-blue); background-color: var(--accent-light); transition: all 0.2s;">
                 <ion-icon name="cloud-upload-outline" style="font-size: 24px; color: var(--primary-blue);"></ion-icon>
                 <div style="flex: 1;">
                     <span class="font-bold text-primary" style="display: block;">Unggah Bukti Transfer</span>
                     <span class="text-sm text-muted">Verifikasi Manual oleh Admin</span>
                 </div>
-                <ion-icon name="checkmark-circle" style="font-size: 24px; color: var(--primary-blue);"></ion-icon>
+                <div class="check-icon">
+                    <ion-icon name="checkmark-circle" style="font-size: 24px; color: var(--primary-blue);"></ion-icon>
+                </div>
             </div>
 
-            <div class="card flex items-center gap-md" style="opacity: 0.6; cursor: not-allowed;">
-                <ion-icon name="wallet-outline" style="font-size: 24px;"></ion-icon>
+            <div id="method-ewallet" class="card flex items-center gap-md"
+                style="cursor: pointer; border: 1px solid transparent; opacity: 1; transition: all 0.2s;">
+                <ion-icon name="wallet-outline" style="font-size: 24px; color: var(--text-dark);"></ion-icon>
                 <div style="flex: 1;">
                     <span class="font-medium" style="display: block;">E-Wallet (OVO / GoPay)</span>
-                    <span class="text-sm text-muted">Akan datang</span>
+                    <span class="text-sm text-muted">Otomatis Terverifikasi</span>
+                </div>
+                <div class="check-icon" style="display: none;">
+                    <ion-icon name="checkmark-circle" style="font-size: 24px; color: var(--primary-blue);"></ion-icon>
                 </div>
             </div>
         </section>
 
-        <!-- Upload Section -->
-        <section class="card"
-            style="text-align: center; border: 2px dashed #E5E7EB; background: transparent; overflow: hidden;">
+        <!-- Upload Section (Conditional) -->
+        <section id="upload-section" class="card"
+            style="text-align: center; border: 2px dashed #E5E7EB; background: transparent; overflow: hidden; display: block;">
             <div id="camera-ui" style="padding: 20px;">
                 <ion-icon name="camera-outline"
                     style="font-size: 48px; color: var(--text-muted); margin-bottom: 8px;"></ion-icon>
@@ -162,7 +237,7 @@
                     Buka Kamera
                 </button>
             </div>
-
+            <!-- ... Camera stream and preview elements as before ... -->
             <div id="camera-stream-container" style="display: none; position: relative;">
                 <video id="camera-video" autoplay playsinline style="width: 100%; border-radius: 8px;"></video>
                 <canvas id="camera-canvas" style="display: none;"></canvas>
@@ -187,17 +262,84 @@
                 </button>
             </div>
         </section>
+   
+        <!-- E-Wallet Section (Conditional) -->
+        <section id="ewallet-section" class="card" style="display: none;">
+            <h3 class="font-bold text-lg" style="margin-bottom: 16px;">Top Up E-Wallet</h3>
+            <div class="input-group">
+                 <label class="label">Nomor Handphone (OVO/GoPay)</label>
+                 <input type="tel" id="ewallet-number" class="input" placeholder="08..." value="081234567890">
+            </div>
+            <div style="background-color: #F3F4F6; padding: 12px; border-radius: 8px; margin-top: 12px; display: flex; align-items: center; gap: 12px;">
+                 <ion-icon name="information-circle-outline" style="font-size: 20px; color: var(--primary-blue);"></ion-icon>
+                 <p class="text-xs text-muted">Anda akan diarahkan ke aplikasi E-Wallet untuk menyelesaikan pembayaran.</p>
+            </div>
+        </section>
 
         <script>
+            // --- UI Elements ---
+            const methodTransfer = document.getElementById('method-transfer');
+            const methodEwallet = document.getElementById('method-ewallet');
+            const uploadSection = document.getElementById('upload-section');
+            const ewalletSection = document.getElementById('ewallet-section');
+            const confirmBtn = document.getElementById('confirm-payment-btn');
+            const successModal = document.getElementById('payment-success-modal');
+            const ewalletNumberParams = document.getElementById('ewallet-number'); // Optional if we want to validate
+
+            let activeMethod = 'transfer'; // or 'ewallet'
+
+            // --- Toggle Method Logic ---
+            const setMethod = (method) => {
+                activeMethod = method;
+                if (method === 'transfer') {
+                    // Styles for Transfer Active
+                    methodTransfer.style.borderColor = 'var(--primary-blue)';
+                    methodTransfer.style.backgroundColor = 'var(--accent-light)';
+                    methodTransfer.querySelector('.font-bold').classList.add('text-primary'); // Make text blue
+                    methodTransfer.querySelector('.check-icon').style.display = 'block';
+
+                    // Styles for Ewallet Inactive
+                    methodEwallet.style.borderColor = 'transparent';
+                    methodEwallet.style.backgroundColor = 'white'; // or default card bg
+                    methodEwallet.querySelector('.font-medium').classList.remove('text-primary');
+                    methodEwallet.querySelector('.check-icon').style.display = 'none';
+
+                    // Sections
+                    uploadSection.style.display = 'block';
+                    ewalletSection.style.display = 'none';
+                    confirmBtn.innerText = "Konfirmasi Pembayaran";
+                } else {
+                    // Styles for Ewallet Active
+                    methodEwallet.style.borderColor = 'var(--primary-blue)';
+                    methodEwallet.style.backgroundColor = 'var(--accent-light)';
+                    methodEwallet.querySelector('.font-medium').classList.add('text-primary'); // Make text blue
+                    methodEwallet.querySelector('.check-icon').style.display = 'block';
+
+                    // Styles for Transfer Inactive
+                    methodTransfer.style.borderColor = 'transparent';
+                    methodTransfer.style.backgroundColor = 'white';
+                    methodTransfer.querySelector('.font-bold').classList.remove('text-primary');
+                    methodTransfer.querySelector('.check-icon').style.display = 'none';
+
+                    // Sections
+                    uploadSection.style.display = 'none';
+                    ewalletSection.style.display = 'block';
+                    confirmBtn.innerText = "Bayar Sekarang";
+                }
+            };
+
+            methodTransfer.addEventListener('click', () => setMethod('transfer'));
+            methodEwallet.addEventListener('click', () => setMethod('ewallet'));
+
+
+            // --- Camera Logic (re-using existing vars but ensuring scope) ---
             const cameraUI = document.getElementById('camera-ui');
             const streamContainer = document.getElementById('camera-stream-container');
             const previewContainer = document.getElementById('preview-container');
-
             const openBtn = document.getElementById('open-camera-btn');
             const closeBtn = document.getElementById('close-camera-btn');
             const captureBtn = document.getElementById('capture-btn');
             const retakeBtn = document.getElementById('retake-btn');
-
             const video = document.getElementById('camera-video');
             const canvas = document.getElementById('camera-canvas');
             const photoPreview = document.getElementById('photo-preview');
@@ -206,17 +348,14 @@
 
             async function startCamera() {
                 try {
-                    stream = await navigator.mediaDevices.getUserMedia({
-                        video: { facingMode: 'environment' }
-                    });
+                    stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
                     video.srcObject = stream;
-
                     cameraUI.style.display = 'none';
                     streamContainer.style.display = 'block';
                     previewContainer.style.display = 'none';
                 } catch (err) {
                     console.error("Error accessing camera: ", err);
-                    alert("Gagal mengakses kamera. Pastikan izin kamera diberikan.");
+                    alert("Gagal mengakses kamera.");
                 }
             }
 
@@ -230,40 +369,75 @@
             }
 
             openBtn.addEventListener('click', startCamera);
-
-            closeBtn.addEventListener('click', () => {
-                stopCamera();
-                cameraUI.style.display = 'block';
-            });
-
+            closeBtn.addEventListener('click', () => { stopCamera(); cameraUI.style.display = 'block'; });
             captureBtn.addEventListener('click', () => {
-                // Set canvas size to match video
                 canvas.width = video.videoWidth;
                 canvas.height = video.videoHeight;
-
-                // Draw video frame to canvas
-                const context = canvas.getContext('2d');
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-                // Convert to data URL
-                const dataUrl = canvas.toDataURL('image/png');
-                photoPreview.src = dataUrl;
-
-                // Switch views
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                photoPreview.src = canvas.toDataURL('image/png');
                 stopCamera();
                 previewContainer.style.display = 'block';
             });
+            retakeBtn.addEventListener('click', () => { previewContainer.style.display = 'none'; startCamera(); });
 
-            retakeBtn.addEventListener('click', () => {
-                previewContainer.style.display = 'none';
-                startCamera();
+
+            // --- Payment Simulation Logic ---
+            confirmBtn.addEventListener('click', () => {
+                // Validation
+                if (activeMethod === 'transfer') {
+                    const previewImg = document.getElementById('photo-preview');
+                    // Simplistic check: if preview text source is empty or section hidden
+                    if (previewContainer.style.display === 'none') {
+                        alert("Harap unggah bukti transfer terlebih dahulu.");
+                        return;
+                    }
+                } else {
+                    // E-Wallet validation
+                    if (document.getElementById('ewallet-number').value.length < 10) {
+                        alert("Harap masukkan nomor handphone yang valid.");
+                        return;
+                    }
+                }
+
+                // 1. Loading State
+                const originalText = confirmBtn.innerText;
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <ion-icon name="refresh-outline" class="animate-spin" style="animation: spin 1s linear infinite;"></ion-icon>
+                        <span>Memproses...</span>
+                    </div>
+                `;
+
+                // Add spin style if missing
+                if (!document.getElementById('spin-style')) {
+                    const style = document.createElement('style');
+                    style.id = 'spin-style';
+                    style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
+                    document.head.appendChild(style);
+                }
+
+                // 2. Simulation Delay
+                setTimeout(() => {
+                    // Update Modal Text based on Method
+                    const modalTitle = successModal.querySelector('h3');
+                    const modalDesc = successModal.querySelector('p');
+
+                    if (activeMethod === 'transfer') {
+                        modalTitle.innerText = "Pembayaran Terkirim!";
+                        modalDesc.innerText = "Bukti transfer diterima. Admin akan memverifikasi dalam 1x24 jam.";
+                    } else {
+                        modalTitle.innerText = "Pembayaran Berhasil!";
+                        modalDesc.innerText = "Pembayaran via E-Wallet berhasil diverifikasi secara otomatis.";
+                    }
+
+                    // 3. Show Success Modal
+                    successModal.classList.add('active');
+                    confirmBtn.innerHTML = originalText;
+                    confirmBtn.disabled = false;
+                }, 2000);
             });
         </script>
-
-            <button class="btn btn-success" style="margin-top: var(--spacing-md);"
-                onclick="alert('Data tersimpan! Status akan berubah setelah verifikasi admin.')">
-                Konfirmasi Pembayaran
-            </button>
 
     </main>
 
