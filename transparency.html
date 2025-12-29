@@ -75,6 +75,80 @@
             </div>
         </section>
 
+
+        <!-- Payment Status Section -->
+        <section class="card">
+            <h3 class="font-bold text-lg" style="margin-bottom: var(--spacing-md);">Status Pembayaran (Oktober 2025)
+            </h3>
+
+            <div class="flex gap-md" style="margin-bottom: var(--spacing-md);">
+                <!-- Summary Counts -->
+                <div style="flex: 1; text-align: center; padding: 8px; background-color: #E8F5E9; border-radius: 8px;">
+                    <div class="font-bold text-success text-lg">42</div>
+                    <div class="text-xs text-muted">Sudah Bayar</div>
+                </div>
+                <div style="flex: 1; text-align: center; padding: 8px; background-color: #FFEBEE; border-radius: 8px;">
+                    <div class="font-bold text-danger text-lg">15</div>
+                    <div class="text-xs text-muted">Belum Bayar</div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-sm">
+                <details>
+                    <summary class="font-bold text-success" style="cursor: pointer; padding: 8px 0; outline: none;">
+                        Lihat Daftar Sudah Bayar (42)</summary>
+                    <ul style="list-style: none; padding: 0; margin-top: 8px; max-height: 200px; overflow-y: auto;">
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span>Bpk. Agus (Blok A3)</span> <ion-icon name="checkmark-circle"
+                                class="text-success"></ion-icon>
+                        </li>
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span>Ibu Siti (Blok B5)</span> <ion-icon name="checkmark-circle"
+                                class="text-success"></ion-icon>
+                        </li>
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span>Bpk. Raharjo (Blok A1)</span> <ion-icon name="checkmark-circle"
+                                class="text-success"></ion-icon>
+                        </li>
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span>Ibu Lina (Blok C1)</span> <ion-icon name="checkmark-circle"
+                                class="text-success"></ion-icon>
+                        </li>
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span class="text-muted text-sm italic">Dan 38 lainnya...</span>
+                        </li>
+                    </ul>
+                </details>
+
+                <details open>
+                    <summary class="font-bold text-danger" style="cursor: pointer; padding: 8px 0; outline: none;">Lihat
+                        Daftar Belum Bayar (15)</summary>
+                    <ul style="list-style: none; padding: 0; margin-top: 8px;">
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span class="font-bold">Bpk. Budi Santoso (Anda)</span> <span class="badge"
+                                style="background-color: var(--danger-red); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;">Belum</span>
+                        </li>
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span>Bpk. Joko (Blok C2)</span> <span class="badge"
+                                style="background-color: var(--danger-red); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;">Belum</span>
+                        </li>
+                        <li class="flex justify-between items-center"
+                            style="padding: 8px 0; border-bottom: 1px dashed #eee;">
+                            <span>Ibu Wati (Blok D4)</span> <span class="badge"
+                                style="background-color: var(--danger-red); color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.7rem;">Belum</span>
+                        </li>
+                    </ul>
+                </details>
+            </div>
+        </section>
+
         <!-- Transaction List -->
         <section class="card">
             <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-md);">
