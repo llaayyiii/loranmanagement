@@ -153,53 +153,151 @@
         <section class="card">
             <div class="flex justify-between items-center" style="margin-bottom: var(--spacing-md);">
                 <h3 class="font-bold text-lg">Mutasi Terakhir</h3>
-                <button class="btn-outline" style="padding: 4px 8px; font-size: 0.75rem; width: auto;">Filter</button>
+                <select id="transaction-filter" class="select"
+                    style="width: auto; padding: 4px 8px; font-size: 0.8rem;">
+                    <option value="newest">Terbaru</option>
+                    <option value="oldest">Terlama</option>
+                    <option value="alphabetical">Abjad (A-Z)</option>
+                    <option value="last_month">Bulan Lalu</option>
+                </select>
             </div>
 
-            <div class="flex flex-col gap-md">
-                <!-- Item 1 -->
-                <div class="flex justify-between items-center"
-                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 8px;">
-                    <div>
-                        <div class="font-bold text-sm">Iuran Sampah & Keamanan</div>
-                        <div class="text-sm text-muted">Bpk. Budi Santoso (Blok A1)</div>
-                        <div class="text-sm text-muted" style="font-size: 0.7rem;">18 Okt 2025, 14:30</div>
-                    </div>
-                    <div class="font-bold text-success text-sm">+50.000</div>
-                </div>
-
-                <!-- Item 2 -->
-                <div class="flex justify-between items-center"
-                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 8px;">
-                    <div>
-                        <div class="font-bold text-sm">Perbaikan Jalan Utama</div>
-                        <div class="text-sm text-muted">Material Bangunan</div>
-                        <div class="text-sm text-muted" style="font-size: 0.7rem;">17 Okt 2025, 09:15</div>
-                    </div>
-                    <div class="font-bold text-danger text-sm">-1.200.000</div>
-                </div>
-
-                <!-- Item 3 -->
-                <div class="flex justify-between items-center"
-                    style="border-bottom: 1px solid #F3F4F6; padding-bottom: 8px;">
-                    <div>
-                        <div class="font-bold text-sm">Iuran Sampah & Keamanan</div>
-                        <div class="text-sm text-muted">Ibu Siti (Blok B5)</div>
-                        <div class="text-sm text-muted" style="font-size: 0.7rem;">16 Okt 2025, 10:00</div>
-                    </div>
-                    <div class="font-bold text-success text-sm">+50.000</div>
-                </div>
-
-                <!-- Item 4 -->
-                <div class="flex justify-between items-center">
-                    <div>
-                        <div class="font-bold text-sm">Konsumsi Rapat Warga</div>
-                        <div class="text-sm text-muted">Snack Box</div>
-                        <div class="text-sm text-muted" style="font-size: 0.7rem;">15 Okt 2025, 19:00</div>
-                    </div>
-                    <div class="font-bold text-danger text-sm">-300.000</div>
-                </div>
+            <div class="flex flex-col gap-md" id="transaction-list">
+                <!-- Items will be populated by JS -->
             </div>
+
+            <script>
+                // Transaction Data (simulated database)
+                const transactions = [
+                    {
+                        title: "Iuran Sampah & Keamanan",
+                        name: "Bpk. Budi Santoso (Blok A1)",
+                        date: "2025-10-18T14:30:00",
+                        amount: 50000,
+                        type: "in"
+                    },
+                    {
+                        title: "Perbaikan Jalan Utama",
+                        name: "Material Bangunan",
+                        date: "2025-10-17T09:15:00",
+                        amount: -1200000,
+                        type: "out"
+                    },
+                    {
+                        title: "Iuran Sampah & Keamanan",
+                        name: "Ibu Siti (Blok B5)",
+                        date: "2025-10-16T10:00:00",
+                        amount: 50000,
+                        type: "in"
+                    },
+                    {
+                        title: "Konsumsi Rapat Warga",
+                        name: "Snack Box",
+                        date: "2025-10-15T19:00:00",
+                        amount: -300000,
+                        type: "out"
+                    },
+                    // Add some older data for "Last Month" testing
+                    {
+                        title: "Iuran Sampah & Keamanan",
+                        name: "Bpk. Agus (Blok A3)",
+                        date: "2025-09-15T08:00:00",
+                        amount: 50000,
+                        type: "in"
+                    },
+                    {
+                        title: "Pembelian Alat Kebersihan",
+                        name: "Toko Makmur",
+                        date: "2025-09-10T11:00:00",
+                        amount: -150000,
+                        type: "out"
+                    }
+                ];
+
+                const listContainer = document.getElementById('transaction-list');
+                const filterSelect = document.getElementById('transaction-filter');
+
+                function formatRupiah(amount) {
+                    const prefix = amount < 0 ? '-' : '+';
+                    return prefix + Math.abs(amount).toLocaleString('id-ID');
+                }
+
+                function formatDate(dateString) {
+                    const options = { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                    return new Date(dateString).toLocaleDateString('id-ID', options);
+                }
+
+                function renderTransactions(data) {
+                    listContainer.innerHTML = '';
+
+                    if (data.length === 0) {
+                        listContainer.innerHTML = '<div class="text-center text-muted" style="padding: 20px;">Tidak ada data ditemukan</div>';
+                        return;
+                    }
+
+                    data.forEach(t => {
+                        const colorClass = t.type === 'in' ? 'text-success' : 'text-danger';
+                        const itemHtml = `
+                            <div class="flex justify-between items-center" style="border-bottom: 1px solid #F3F4F6; padding-bottom: 8px;">
+                                <div>
+                                    <div class="font-bold text-sm">${t.title}</div>
+                                    <div class="text-sm text-muted">${t.name}</div>
+                                    <div class="text-sm text-muted" style="font-size: 0.7rem;">${formatDate(t.date)}</div>
+                                </div>
+                                <div class="font-bold ${colorClass} text-sm">${formatRupiah(t.amount)}</div>
+                            </div>
+                        `;
+                        const div = document.createElement('div');
+                        div.innerHTML = itemHtml;
+                        listContainer.appendChild(div); // Appending the wrapper div for simplicity, though adding innerHTML direct to loop is fine too
+                    });
+                }
+
+                function filterAndSort(criteria) {
+                    let filteredData = [...transactions];
+                    const now = new Date(); // In actual app this would be real Date, here we assumecontext is 2025
+                    // Mocking "Current" as Oct 2025 based on page context for "Last Month" logic
+                    const currentContextDate = new Date("2025-10-31");
+
+                    if (criteria === 'last_month') {
+                        filteredData = filteredData.filter(t => {
+                            const tDate = new Date(t.date);
+                            // Simple check: is Month == CurrentMonth - 1?
+                            // For mock context Oct 2025, last month is Sept 2025
+                            return tDate.getMonth() === 8 && tDate.getFullYear() === 2025; // 8 is Sept
+                        });
+                    }
+
+                    // Sorting
+                    if (criteria === 'newest') {
+                        filteredData.sort((a, b) => new Date(b.date) - new Date(a.date));
+                    } else if (criteria === 'oldest') {
+                        filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    } else if (criteria === 'alphabetical') {
+                        filteredData.sort((a, b) => a.title.localeCompare(b.title));
+                    }
+
+                    // If filter is not last_month, sorting logic applies to all or pre-filtered? 
+                    // User request: "filter terbaru, filter terlama" implies sorting. "Filter bulan lalu" implies subset.
+                    // The standard UI pattern is: sort is applied to the visible set. 
+                    // However, here the dropdown mixes "Sort" and "Filter". 
+                    // "Bulan Lalu" acts as a mode.
+
+                    // If "Bulan Lalu" selected, it shows last month data sorted by newest (default).
+                    // If others selected, it shows ALL data sorted by that criteria.
+
+                    renderTransactions(filteredData);
+                }
+
+                filterSelect.addEventListener('change', (e) => {
+                    filterAndSort(e.target.value);
+                });
+
+                // Initial load
+                renderTransactions(transactions); // Defaults to implicit order (defined in array), which is somewhat mixed but mostly newest top. 
+                // Let's force proper default sort
+                filterAndSort('newest'); 
+            </script>
 
             <button class="btn btn-outline" style="margin-top: var(--spacing-md); width: 100%;">
                 Muat Lebih Banyak

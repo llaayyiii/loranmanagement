@@ -18,9 +18,14 @@
             <p class="text-sm text-muted">Selamat Datang,</p>
             <h1 class="text-xl font-bold text-primary">Bpk. Budi Santoso</h1>
         </div>
-        <div class="card" style="padding: 8px; margin: 0; border-radius: 50%;">
+        <a href="notifications.html" class="card"
+            style="padding: 8px; margin: 0; border-radius: 50%; display: inline-flex; text-decoration: none; position: relative;">
             <ion-icon name="notifications-outline" style="font-size: 24px; color: var(--text-dark);"></ion-icon>
-        </div>
+            <!-- Red dot for unread -->
+            <div
+                style="position: absolute; top: 0; right: 0; width: 10px; height: 10px; background-color: var(--danger-red); border-radius: 50%; border: 2px solid white;">
+            </div>
+        </a>
     </header>
 
     <main class="container main-content animate-fade-in">
