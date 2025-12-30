@@ -46,11 +46,12 @@ body {
   line-height: 1.5;
   font-size: 16px;
   /* Mobile-first constraints */
-  max-width: 480px; 
+  max-width: 480px;
   margin: 0 auto;
   min-height: 100vh;
-  box-shadow: 0 0 50px rgba(0,0,0,0.1);
-  background-color: #fff; /* App container need white bg mostly */
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  /* App container need white bg mostly */
 }
 
 /* Utilities */
@@ -74,20 +75,57 @@ body {
   justify-content: space-between;
 }
 
-.gap-sm { gap: var(--spacing-sm); }
-.gap-md { gap: var(--spacing-md); }
+.gap-sm {
+  gap: var(--spacing-sm);
+}
 
-.text-center { text-align: center; }
-.font-bold { font-weight: 700; }
-.font-medium { font-weight: 500; }
-.text-sm { font-size: 0.875rem; }
-.text-lg { font-size: 1.125rem; }
-.text-xl { font-size: 1.25rem; }
+.gap-md {
+  gap: var(--spacing-md);
+}
 
-.text-primary { color: var(--primary-blue); }
-.text-success { color: var(--secondary-green); }
-.text-danger { color: var(--danger-red); }
-.text-muted { color: var(--text-muted); }
+.text-center {
+  text-align: center;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-primary {
+  color: var(--primary-blue);
+}
+
+.text-success {
+  color: var(--secondary-green);
+}
+
+.text-danger {
+  color: var(--danger-red);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
 
 /* Components */
 .btn {
@@ -101,7 +139,8 @@ body {
   border: none;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.1s;
-  width: 100%; /* Accessible full width on mobile */
+  width: 100%;
+  /* Accessible full width on mobile */
   font-size: 1rem;
 }
 
@@ -137,7 +176,7 @@ body {
   border-radius: var(--radius-lg);
   padding: var(--spacing-lg);
   box-shadow: var(--shadow-md);
-  border: 1px solid rgba(0,0,0,0.03);
+  border: 1px solid rgba(0, 0, 0, 0.03);
   margin-bottom: var(--spacing-md);
 }
 
@@ -175,7 +214,8 @@ body {
   color: var(--text-dark);
 }
 
-.input, .select {
+.input,
+.select {
   width: 100%;
   padding: 12px;
   border: 2px solid #E5E7EB;
@@ -185,7 +225,8 @@ body {
   transition: border-color 0.2s;
 }
 
-.input:focus, .select:focus {
+.input:focus,
+.select:focus {
   outline: none;
   border-color: var(--primary-blue);
 }
@@ -226,13 +267,21 @@ body {
 }
 
 .main-content {
-  padding-bottom: 80px; /* Space for bottom nav */
+  padding-bottom: 80px;
+  /* Space for bottom nav */
 }
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
